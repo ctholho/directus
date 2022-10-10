@@ -8,8 +8,11 @@ const tests: [string, boolean][] = [
 	['$CUSTOM', false],
 	['$CURRENT_USER', true],
 	['$CURRENT_ROLE', true],
+	['$CURRENT_ACCOUNTABILITY', true],
 	['$CURRENT_USER.role.name', true],
 	['$CURRENT_ROLE.users.id', true],
+	['$CURRENT_ACCOUNTABILITY.user.role.name', true],
+	['$CURRENT_ACCOUNTABILITY.role.users.id', true],
 ];
 
 describe('is extension type', () => {

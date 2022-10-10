@@ -192,6 +192,29 @@ describe('', () => {
 		expect(parseFilter(mockFilter, mockAccountability)).toStrictEqual(mockResult);
 	});
 
+	it('replaces the accountability to $CURRENT_ACCOUNTABILITY', () => {
+		const mockFilter = {
+			_and: [
+				{
+					owner: {
+						_eq: '$CURRENT_ACCOUNTABILITY',
+					},
+				},
+			],
+		} as Filter;
+		const mockResult = {
+			_and: [
+				{
+					owner: {
+						_eq: { user: 'user', role: 'admin' },
+					},
+				},
+			],
+		} as Filter;
+		const mockAccountability = { user: 'user', role: 'admin' };
+		expect(parseFilter(mockFilter, mockAccountability)).toStrictEqual(mockResult);
+	});
+
 	it('adjusts the date by 1 day', () => {
 		const mockFilter = {
 			date: {

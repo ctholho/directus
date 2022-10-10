@@ -158,7 +158,7 @@ export default defineComponent({
 
 			if (
 				typeof val === 'string' &&
-				['$NOW', '$CURRENT_USER', '$CURRENT_ROLE'].some((prefix) => val.startsWith(prefix))
+				['$NOW', '$CURRENT_USER', '$CURRENT_ROLE', '$CURRENT_ACCOUNTABILITY'].some((prefix) => val.startsWith(prefix))
 			) {
 				return emit('input', val);
 			}

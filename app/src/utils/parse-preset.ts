@@ -16,6 +16,7 @@ export function parsePreset(preset: Record<string, any> | null): Record<string, 
 		parsePresetShared(preset, accountability, {
 			$CURRENT_ROLE: currentUser.role as Role,
 			$CURRENT_USER: currentUser as User,
+			$CURRENT_ACCOUNTABILITY: accountability as Accountability,
 		}) ?? {}
 	);
 }

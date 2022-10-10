@@ -109,6 +109,7 @@ function parsePermissions(permissions: any[]) {
 	const requiredPermissionData = {
 		$CURRENT_USER: [] as string[],
 		$CURRENT_ROLE: [] as string[],
+		$CURRENT_ACCOUNTABILITY: [] as string[],
 	};
 
 	let containDynamicData = false;
@@ -151,6 +152,11 @@ function parsePermissions(permissions: any[]) {
 				containDynamicData = true;
 			}
 
+			if (typeof val === 'string' && val.startsWith('$CURRENT_ACCOUNTABILITY.')) {
+				requiredPermissionData.$CURRENT_ACCOUNTABILITY.push(val.replace('$CURRENT_ACCOUNTABILITY.', ''));
+				containDynamicData = true;
+			}
+
 			return val;
 		};
 
@@ -179,6 +185,12 @@ async function getFilterContext(schema: SchemaOverview, accountability: Accounta
 	if (accountability.role && requiredPermissionData.$CURRENT_ROLE.length > 0) {
 		filterContext.$CURRENT_ROLE = await rolesService.readOne(accountability.role, {
 			fields: requiredPermissionData.$CURRENT_ROLE,
+		});
+	}
+
+	if (accountability && requiredPermissionData.$CURRENT_ACCOUNTABILITY.length > 0) {
+		filterContext.$CURRENT_ACCOUNTABILITY = await rolesService.readOne(accountability, {
+			fields: requiredPermissionData.$CURRENT_ACCOUNTABILITY,
 		});
 	}
 
